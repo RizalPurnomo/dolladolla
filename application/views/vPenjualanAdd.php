@@ -133,7 +133,9 @@
     }
 
     function addBarang() {
-        let totals;
+        document.getElementById("pembayaran").disabled = true;
+        document.getElementById("totals").disabled = true;
+
         idpembelian = $("#idpembelian").val();
         idbarang = $("#idbarang").val();
         namabarang = $("#namabarang").val();
@@ -143,6 +145,7 @@
         subtotal = $("#subtotal").val();
         diskon = $("#diskon").val();
         total = parseInt($("#total").val());
+        totals = parseInt($("#totals").val());
 
 
         if (idpembelian == "" || idbarang == "" || qty == "" || hargasatuan == "" || subtotal == "") {
@@ -185,12 +188,9 @@
                 <td>${total}</td>
             </tr>`
         );
-        console.log(total);
         totals = totals + total;
-        console.log(totals);
-        console.log(typeof totals);
-        console.log(typeof total);
-        $("#totals").val(total);
+        $("#totals").val(totals);
+        $("#pembayaran").val(totals);
 
         // $('#modal-lg').modal('hide');
         $("#idpembelian").val("");
@@ -282,6 +282,16 @@
             }
         })
 
+    }
+
+    function lunas() {
+        document.getElementById('btnPembayaran').innerText = 'Lunas';
+        document.getElementById("pembayaran").disabled = true;
+    }
+
+    function dp() {
+        document.getElementById('btnPembayaran').innerText = 'DP';
+        document.getElementById("pembayaran").disabled = false;
     }
 </script>
 
@@ -448,18 +458,36 @@
 
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="totals" placeholder="Total">
+                                    <input type="text" class="form-control" disabled id="totals" placeholder="Total" value="0">
                                 </div>
                             </div>
                             <br />
                             <hr />
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Keterangan</label>
+                                <label class="col-sm-2 col-form-label">Payment</label>
                                 <div class="col-sm-10">
-                                    <input type="text" class="form-control" id="keterangan" placeholder="Keterangan">
+                                    <div class="input-group">
+                                        <div class="input-group-btn">
+                                            <button type="button" id="btnPembayaran" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Lunas
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li onclick="lunas()">Lunas</li>
+                                                <li onclick="dp()">DP</li>
+                                            </ul>
+                                        </div>
+                                        <input type="text" class="form-control" disabled id="pembayaran" placeholder="Payament">
+                                    </div>
                                 </div>
                             </div>
-
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Pengiriman</label>
+                                <div class="col-sm-10">
+                                    <select class="form-control select2" style="width: 100%;" id="customer">
+                                        <option value="done">Done</option>
+                                        <option value="hold">Hold</option>
+                                    </select>
+                                </div>
+                            </div>
 
                             <div class="card-footer">
                                 <button onclick="savePenjualan()" class="btn btn-info">Simpan</button>
