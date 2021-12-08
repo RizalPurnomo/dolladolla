@@ -32,12 +32,14 @@ class Penjualan extends CI_Controller
     function saveData()
     {
         $penjualan            = $this->input->post('penjualan');
+        $pembayaran            = $this->input->post('pembayaran');
         $penjualandetail      = $this->input->post('penjualandetail');
         $pembeliandetail      = $this->input->post('pembeliandetail');
         $stock                 = 0;
 
         //insert Data
         $this->penjualan_model->saveData($penjualan, 'penjualan');
+        $this->penjualan_model->saveData($pembayaran, 'pembayaran');
 
         for ($i = 0; $i < count($penjualandetail); $i++) {
             //insert Data Detail
@@ -76,6 +78,7 @@ class Penjualan extends CI_Controller
             //delete data
             $this->penjualan_model->deleteData($idData, "penjualan_detail");
             $this->penjualan_model->deleteData($idData, "penjualan");
+            $this->penjualan_model->deleteData($idData, "pembayaran");
         }
         return "Data Berhasil Di Delete";
     }

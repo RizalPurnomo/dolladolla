@@ -13,7 +13,8 @@ class Pembelian_model extends CI_Model
     public function getAllData()
     {
         $sql = "SELECT * FROM pembelian a
-            INNER JOIN supplier b ON a.id_supplier=b.id_supplier";
+            INNER JOIN supplier b ON a.id_supplier=b.id_supplier
+            ORDER BY id_pembelian desc";
         $qry = $this->db->query($sql);
         return $qry->result_array();
     }

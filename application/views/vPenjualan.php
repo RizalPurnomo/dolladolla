@@ -30,6 +30,10 @@
             }
         })
     }
+
+    function pembayaran(id) {
+        $("#modal-lg").modal();
+    }
 </script>
 
 <!-- Content Wrapper. Contains page content -->
@@ -80,8 +84,10 @@
                                             <th>Tanggal</th>
                                             <th>Customer</th>
                                             <th>Reseller</th>
+                                            <th>Payment</th>
+                                            <th>Pengiriman</th>
                                             <th>Keterangan</th>
-                                            <th style="width:15%">Aksi</th>
+                                            <th style="width:20%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -94,9 +100,12 @@
                                                     <td><?php echo $penjualan[$a]['tgl_penjualan'] ?></td>
                                                     <td><?php echo $penjualan[$a]['nama'] ?></td>
                                                     <td><?php echo $penjualan[$a]['status'] ?></td>
+                                                    <td><?php echo $penjualan[$a]['status_pembayaran'] ?></td>
+                                                    <td><?php echo $penjualan[$a]['status_pengiriman'] ?></td>
                                                     <td><?php echo $penjualan[$a]['keterangan'] ?></td>
                                                     <td>
                                                         <a class="btn btn-large btn-success " href="<?php echo base_url('penjualan/detail/') .  $penjualan[$a]['id_penjualan']; ?>">Detail</a>
+                                                        | <a class="btn btn-large btn-primary" href="javascript:pembayaran('penjualan<?php echo $penjualan[$a]['id_penjualan']; ?>')">Pay</a>
                                                         | <a class="btn btn-large btn-danger" href="javascript:deleteData('penjualan<?php echo $penjualan[$a]['id_penjualan']; ?>')">Delete</a>
                                                     </td>
                                                 </tr>
@@ -120,4 +129,50 @@
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+
+<div class="modal fade" id="modal-lg">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Pembayaran / Pengiriman</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Payment</label>
+                            <div class="col-sm-9">
+                                <select class="form-control select2" style="width: 100%;" id="pembayaran">
+                                    <option value="Lunas">Lunas</option>
+                                    <option value="DP">DP</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Pengiriman</label>
+                            <div class="col-sm-9">
+                                <select class="form-control select2" style="width: 100%;" id="pengiriman">
+                                    <option value="Done">Done</option>
+                                    <option value="Hold">Hold</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" onclick="addCustomer()" class="btn btn-primary">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <?php $this->load->view('footer'); ?>

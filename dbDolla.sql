@@ -55,10 +55,13 @@ DROP TABLE IF EXISTS `pembayaran`;
 CREATE TABLE `pembayaran` (
   `id_pembayaran` int(11) NOT NULL AUTO_INCREMENT,
   `id_penjualan` varchar(5) DEFAULT NULL,
+  `pembayaran` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_pembayaran`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 /*Data for the table `pembayaran` */
+
+insert  into `pembayaran`(`id_pembayaran`,`id_penjualan`,`pembayaran`) values (1,'21002',50000),(2,'21003',142000);
 
 /*Table structure for table `pembelian` */
 
@@ -97,7 +100,7 @@ CREATE TABLE `pembelian_detail` (
 
 /*Data for the table `pembelian_detail` */
 
-insert  into `pembelian_detail`(`id_pembelian_detail`,`id_pembelian`,`id_barang`,`barcode`,`nama_barang`,`qty_masuk`,`qty_klr`,`harga_beli`,`harga_jual_ecer`,`harga_jual_reseller`) values (3,'21002','21003','345','CROCO KAYO',5,2,34000,68000,59500),(4,'21002','21004','456','CROCO KAZUMI',10,2,37000,74000,64750);
+insert  into `pembelian_detail`(`id_pembelian_detail`,`id_pembelian`,`id_barang`,`barcode`,`nama_barang`,`qty_masuk`,`qty_klr`,`harga_beli`,`harga_jual_ecer`,`harga_jual_reseller`) values (3,'21002','21003','345','CROCO KAYO',5,3,34000,68000,59500),(4,'21002','21004','456','CROCO KAZUMI',10,4,37000,74000,64750);
 
 /*Table structure for table `penjualan` */
 
@@ -110,12 +113,14 @@ CREATE TABLE `penjualan` (
   `id_customer` varchar(5) DEFAULT NULL,
   `keterangan` varchar(200) DEFAULT NULL,
   `total_penjualan` int(11) DEFAULT NULL,
+  `status_pembayaran` varchar(20) DEFAULT NULL,
+  `status_pengiriman` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id_penjualan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*Data for the table `penjualan` */
 
-insert  into `penjualan`(`id_penjualan`,`id_user`,`tgl_penjualan`,`id_customer`,`keterangan`,`total_penjualan`) values ('21001','21000','2021-11-02 17:16:27','21001','',NULL);
+insert  into `penjualan`(`id_penjualan`,`id_user`,`tgl_penjualan`,`id_customer`,`keterangan`,`total_penjualan`,`status_pembayaran`,`status_pengiriman`) values ('21001','21000','2021-11-02 17:16:27','21001','',NULL,NULL,NULL),('21002','21000','2021-12-01 05:22:32','21002','',74000,'DP','hold'),('21003','21000','2021-12-07 05:43:26','21002','',142000,'Lunas','Done');
 
 /*Table structure for table `penjualan_detail` */
 
@@ -132,7 +137,7 @@ CREATE TABLE `penjualan_detail` (
 
 /*Data for the table `penjualan_detail` */
 
-insert  into `penjualan_detail`(`id_penjualan`,`id_pembelian_detail`,`id_barang`,`qty_keluar`,`harga_jual`,`diskon`) values ('21001',4,'21004',2,64750,0),('21001',3,'21003',2,59500,0);
+insert  into `penjualan_detail`(`id_penjualan`,`id_pembelian_detail`,`id_barang`,`qty_keluar`,`harga_jual`,`diskon`) values ('21001',4,'21004',2,64750,0),('21001',3,'21003',2,59500,0),('21002',4,'21004',1,74000,0),('21003',3,'21003',1,68000,0),('21003',4,'21004',1,74000,0);
 
 /*Table structure for table `profile` */
 
@@ -181,7 +186,7 @@ CREATE TABLE `user` (
 
 /*Data for the table `user` */
 
-insert  into `user`(`id_user`,`username`,`realname`,`password`,`level`,`lastlogin`) values (21000,'rizal','Rizal Purnomo','c6318323cc5693ce1f8d220cc9a5030e','Super Administrator','2021-12-06 04:53:47'),(21001,'Rully','Rully','827ccb0eea8a706c4c34a16891f84e7b','Administrator',NULL),(21002,'staff','Staff','827ccb0eea8a706c4c34a16891f84e7b','Staff','2021-11-28 16:19:33');
+insert  into `user`(`id_user`,`username`,`realname`,`password`,`level`,`lastlogin`) values (21000,'rizal','Rizal Purnomo','c6318323cc5693ce1f8d220cc9a5030e','Super Administrator','2021-12-08 04:55:09'),(21001,'Rully','Rully','827ccb0eea8a706c4c34a16891f84e7b','Administrator',NULL),(21002,'staff','Staff','827ccb0eea8a706c4c34a16891f84e7b','Staff','2021-11-28 16:19:33');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

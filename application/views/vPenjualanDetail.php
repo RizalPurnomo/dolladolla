@@ -75,7 +75,7 @@
                                 <!-- Table row -->
                                 <div class="row">
                                     <div class="col-12 table-responsive">
-                                        <table class="table table-striped">
+                                        <table class="table table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>No</th>
@@ -118,6 +118,25 @@
                                     <!-- /.col -->
                                 </div>
                                 <!-- /.row -->
+                                <div class="row">
+                                    <div class="col-3 table-responsive">
+                                        <table class="table table-bordered">
+                                            <tr>
+                                                <td colspan="2">
+                                                    <center><b>STATUS</b></center>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Payment</td>
+                                                <td>: <?php echo $penjualan[0]['status_pembayaran']; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pengiriman</td>
+                                                <td>: <?php echo $penjualan[0]['status_pengiriman']; ?></td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
 
                             </div>
                             <!-- /.invoice -->

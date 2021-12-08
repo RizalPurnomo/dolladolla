@@ -13,7 +13,8 @@ class Penjualan_model extends CI_Model
     public function getAllData()
     {
         $sql = "SELECT * FROM penjualan a
-            INNER JOIN customer b ON a.id_customer=b.id_customer";
+            INNER JOIN customer b ON a.id_customer=b.id_customer
+            ORDER BY id_penjualan desc";
         $qry = $this->db->query($sql);
         return $qry->result_array();
     }

@@ -256,7 +256,14 @@
                 "id_user": $("#iduser").val(),
                 "tgl_penjualan": tanggal,
                 "id_customer": $("#customer").val().split(' | ')[0],
-                "keterangan": $("#keterangan").val()
+                "keterangan": $("#keterangan").val(),
+                "total_penjualan": $("#totals").val(),
+                "status_pembayaran": document.getElementById('btnPembayaran').innerText,
+                "status_pengiriman": $("#pengiriman").val()
+            },
+            "pembayaran": {
+                "id_penjualan": $("#idpenjualan").val(),
+                "pembayaran": $("#pembayaran").val()
             },
             "penjualandetail": datadetailpenjualan,
             "pembeliandetail": datadetailpembelian
@@ -468,23 +475,22 @@
                                 <div class="col-sm-10">
                                     <div class="input-group">
                                         <div class="input-group-btn">
-                                            <button type="button" id="btnPembayaran" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Lunas
-                                            </button>
+                                            <button type="button" id="btnPembayaran" class="btn btn-warning dropdown-toggle" data-toggle="dropdown">Lunas</button>
                                             <ul class="dropdown-menu">
                                                 <li onclick="lunas()">Lunas</li>
                                                 <li onclick="dp()">DP</li>
                                             </ul>
                                         </div>
-                                        <input type="text" class="form-control" disabled id="pembayaran" placeholder="Payament">
+                                        <input type="text" class="form-control" disabled id="pembayaran" placeholder="Payment">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Pengiriman</label>
                                 <div class="col-sm-10">
-                                    <select class="form-control select2" style="width: 100%;" id="customer">
-                                        <option value="done">Done</option>
-                                        <option value="hold">Hold</option>
+                                    <select class="form-control select2" style="width: 100%;" id="pengiriman">
+                                        <option value="Done">Done</option>
+                                        <option value="Hold">Hold</option>
                                     </select>
                                 </div>
                             </div>
