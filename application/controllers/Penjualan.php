@@ -61,6 +61,12 @@ class Penjualan extends CI_Controller
         $this->load->view('vPenjualanDetail', $data);
     }
 
+    public function detailPrint($iddata)
+    {
+        $data['penjualan'] = $this->penjualan_model->getDataById($iddata);
+        $this->load->view('vPenjualanDetailPrint', $data);
+    }
+
     function delete($idData)
     {
         if (isset($idData)) {

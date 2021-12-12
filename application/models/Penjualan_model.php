@@ -50,6 +50,7 @@ class Penjualan_model extends CI_Model
         $sql = "SELECT * FROM penjualan a
         INNER JOIN penjualan_detail b ON a.id_penjualan=b.id_penjualan
         INNER JOIN customer c ON c.id_customer=a.id_customer
+        INNER JOIN pembayaran d ON d.id_penjualan=a.id_penjualan
         WHERE a.id_penjualan='$iddata'";
         $qry = $this->db->query($sql);
         return $qry->result_array();

@@ -29,6 +29,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h5>Penjualan Detail</h5>
+                            <div class="card-tools">
+                                <a href="<?php echo base_url() . 'penjualan/detailPrint/' . $this->uri->segment(3) ?>" target="_blank" class="btn btn-primary"><i class="fas fa-print"></i> Print</a>
+                            </div>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -128,7 +131,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Payment</td>
-                                                <td>: <?php echo $penjualan[0]['status_pembayaran']; ?></td>
+                                                <td>: <?php echo $penjualan[0]['status_pembayaran'] . " ( " . $penjualan[0]['pembayaran'] . " )"; ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Pengiriman</td>
