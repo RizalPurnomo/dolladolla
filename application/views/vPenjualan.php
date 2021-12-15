@@ -31,7 +31,36 @@
         })
     }
 
+    function addPayment() {
+        let dataArray = {
+            "penjualan": {
+                "status_pembayaran": $("#pembayaran").val(),
+                "status_pengiriman": $("#pengiriman").val()
+            }
+        }
+
+        console.log(dataArray);
+        // return;
+        $.ajax({
+            type: "POST",
+            data: dataArray,
+            url: '<?php echo base_url('penjualan/updateData/'); ?>' + $("#idPenjualan").val(),
+            success: function(result) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Data Berhasil Disimpan',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+
+                console.log(result);
+                window.location = "<?php echo base_url(); ?>penjualan/";
+            }
+        })
+    }
+
     function pembayaran(id) {
+        $("#idPenjualan").val(id);
         $("#modal-lg").modal();
     }
 </script>
@@ -100,12 +129,29 @@
                                                     <td><?php echo $penjualan[$a]['tgl_penjualan'] ?></td>
                                                     <td><?php echo $penjualan[$a]['nama'] ?></td>
                                                     <td><?php echo $penjualan[$a]['status'] ?></td>
-                                                    <td><?php echo $penjualan[$a]['status_pembayaran'] ?></td>
-                                                    <td><?php echo $penjualan[$a]['status_pengiriman'] ?></td>
+                                                    <?php
+                                                    if ($penjualan[$a]['status_pembayaran'] == 'Lunas') {
+                                                        $status_pengiriman = "style='background-color:#DEFC9E'";
+                                                    } else {
+                                                        $status_pengiriman = "style='background-color:#FCD49E'";
+                                                    }
+                                                    if ($penjualan[$a]['status_pengiriman'] == 'Done') {
+                                                        $status_pembayaran = "style='background-color:#DEFC9E'";
+                                                    } else {
+                                                        $status_pembayaran = "style='background-color:#FCD49E'";
+                                                    }
+                                                    if ($penjualan[$a]['status_pembayaran'] == 'Lunas' && $penjualan[$a]['status_pengiriman'] == 'Done') {
+                                                        $btn = 'disabled';
+                                                    } else {
+                                                        $btn = '';
+                                                    }
+                                                    ?>
+                                                    <td <?php echo $status_pengiriman; ?>><?php echo $penjualan[$a]['status_pembayaran']; ?></td>
+                                                    <td <?php echo $status_pembayaran; ?>><?php echo $penjualan[$a]['status_pengiriman'] ?></td>
                                                     <td><?php echo $penjualan[$a]['keterangan'] ?></td>
                                                     <td>
                                                         <a class="btn btn-large btn-success " href="<?php echo base_url('penjualan/detail/') .  $penjualan[$a]['id_penjualan']; ?>">Detail</a>
-                                                        | <a class="btn btn-large btn-primary" href="javascript:pembayaran('penjualan<?php echo $penjualan[$a]['id_penjualan']; ?>')">Pay</a>
+                                                        | <button class="btn btn-large btn-primary" <?php echo $btn; ?> onclick="pembayaran(<?php echo $penjualan[$a]['id_penjualan']; ?>)">Pay</button>
                                                         | <a class="btn btn-large btn-danger" href="javascript:deleteData('penjualan<?php echo $penjualan[$a]['id_penjualan']; ?>')">Delete</a>
                                                     </td>
                                                 </tr>
@@ -144,6 +190,7 @@
 
                 <div class="card">
                     <div class="card-body">
+                        <input type="hidden" id="idPenjualan" name="idPenjualan">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">Payment</label>
                             <div class="col-sm-9">
@@ -168,7 +215,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" onclick="addCustomer()" class="btn btn-primary">Simpan</button>
+                <button type="button" onclick="addPayment()" class="btn btn-primary">Simpan</button>
             </div>
         </div>
     </div>

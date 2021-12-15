@@ -51,7 +51,7 @@
                                 <!-- info row -->
                                 <div class="row invoice-info">
                                     <div class="col-sm-4 invoice-col">
-                                        <strong>Supplier</strong>
+                                        <strong>Customer</strong>
                                         <address>
                                             <?php echo $penjualan[0]['nama']; ?><br>
 
@@ -93,29 +93,37 @@
                                             <tbody>
                                                 <?php
                                                 if (!empty($penjualan)) {
+                                                    $totals = 0;
                                                     for ($a = 0; $a < count($penjualan); $a++) { ?>
                                                         <tr id="penjualan<?php echo $penjualan[$a]['id_penjualan']; ?>">
                                                             <td><?php echo $a + 1 ?></td>
                                                             <td><?php echo $penjualan[$a]['id_barang'] ?></td>
-                                                            <td><?php echo $penjualan[$a]['qty_keluar'] ?></td>
-                                                            <td><?php echo $penjualan[$a]['harga_jual'] ?></td>
-                                                            <td>
+                                                            <td align="right"><?php echo number_format($penjualan[$a]['qty_keluar']) ?></td>
+                                                            <td align="right"><?php echo number_format($penjualan[$a]['harga_jual']) ?></td>
+                                                            <td align="right">
                                                                 <?php
                                                                 $subtotal = $penjualan[$a]['qty_keluar'] * $penjualan[$a]['harga_jual'];
-                                                                echo $subtotal;
+                                                                echo number_format($subtotal);
                                                                 ?>
                                                             </td>
-                                                            <td><?php echo $penjualan[$a]['diskon'] ?></td>
-                                                            <td>
+                                                            <td align="right"><?php echo number_format($penjualan[$a]['diskon']) ?></td>
+                                                            <td align="right">
                                                                 <?php
                                                                 $total = $subtotal - $penjualan[$a]['diskon'];
-                                                                echo $total;
+                                                                $totals = $totals + $total;
+                                                                echo number_format($total);
                                                                 ?>
                                                             </td>
                                                         </tr>
                                                 <?php }
                                                 } ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="6"></td>
+                                                    <td align="right"><?php echo number_format($totals); ?></td>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                     <!-- /.col -->
@@ -131,7 +139,7 @@
                                             </tr>
                                             <tr>
                                                 <td>Payment</td>
-                                                <td>: <?php echo $penjualan[0]['status_pembayaran'] . " ( " . $penjualan[0]['pembayaran'] . " )"; ?></td>
+                                                <td>: <?php echo $penjualan[0]['status_pembayaran'] . " ( " . number_format($penjualan[0]['pembayaran']) . " )"; ?></td>
                                             </tr>
                                             <tr>
                                                 <td>Pengiriman</td>

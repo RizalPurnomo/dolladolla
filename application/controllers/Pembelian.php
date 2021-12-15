@@ -90,17 +90,17 @@ class Pembelian extends CI_Controller
 
 
 
-    public function print($idData)
-    {
-        $data['penerimaan'] = $this->penerimaan_model->getDataById($idData);
-        $this->load->view('vPenerimaanPrint', $data);
-    }
+    // public function print($idData)
+    // {
+    //     $data['penerimaan'] = $this->penerimaan_model->getDataById($idData);
+    //     $this->load->view('vPenerimaanPrint', $data);
+    // }
 
-    public function print2($idData)
-    {
-        $data['penerimaan'] = $this->penerimaan_model->getDataById($idData);
-        $this->load->view('vPenerimaanPrint2', $data);
-    }
+    // public function print2($idData)
+    // {
+    //     $data['penerimaan'] = $this->penerimaan_model->getDataById($idData);
+    //     $this->load->view('vPenerimaanPrint2', $data);
+    // }
 
 
 

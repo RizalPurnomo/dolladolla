@@ -362,9 +362,10 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <button type="button" class="btn btn-app" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
+                        <!-- <button type="button" class="btn btn-app" data-toggle="collapse" data-target="#collapseExample" aria-expanded="true" aria-controls="collapseExample">
                             <i class="fa fa-plus-square" aria-hidden="true"></i> Tambah
-                        </button>
+                        </button> -->
+                        Tambah Barang
                     </div>
                     <div class="card-body">
                         <div class="collapse.show" id="collapseExample">

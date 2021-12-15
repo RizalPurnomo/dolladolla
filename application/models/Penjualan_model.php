@@ -120,15 +120,10 @@ class Penjualan_model extends CI_Model
         $this->db->insert($tabel, $data);
     }
 
-
-
-
-
-    // public function updateData($id, $data, $tabel)
-    // {
-    //     $this->db->where('idbarangmasuk', $id);
-    //     $this->db->update($tabel, $data);
-    //     return  "Data " . $id . " Berhasil Diupdate";
-    // }
-
+    public function updateData($id, $data, $tabel)
+    {
+        $this->db->where('id_penjualan', $id);
+        $this->db->update($tabel, $data);
+        return  "Data " . $id . " Berhasil Diupdate";
+    }
 }

@@ -33,6 +33,10 @@
         return dateTime;
     }
 
+    function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
     function tambahCustomer() {
         getMaxIdCustomer();
         $("#modal-lg").modal()
@@ -126,10 +130,10 @@
     }
 
     function hitung() {
-        subtotal = parseInt($("#qty").val()) * parseInt($("#hargasatuan").val());
+        subtotal = parseInt($("#qty").val()) * parseInt($("#hargasatuan").val().replace(',', ''));
         total = parseInt(subtotal) - parseInt($("#diskon").val());
-        $("#subtotal").val(subtotal);
-        $("#total").val(total);
+        $("#subtotal").val(numberWithCommas(subtotal));
+        $("#total").val(numberWithCommas(total));
     }
 
     function addBarang() {
@@ -144,8 +148,8 @@
         hargasatuan = $("#hargasatuan").val();
         subtotal = $("#subtotal").val();
         diskon = $("#diskon").val();
-        total = parseInt($("#total").val());
-        totals = parseInt($("#totals").val());
+        total = parseInt($("#total").val().replace(',', ''));
+        totals = parseInt($("#totals").val().replace(',', ''));
 
 
         if (idpembelian == "" || idbarang == "" || qty == "" || hargasatuan == "" || subtotal == "") {
@@ -181,16 +185,16 @@
                 <td>${idpembelian}</td>
                 <td>${idbarang}</td>
                 <td>${namabarang}</td>
-                <td>${qty}</td>
-                <td>${hargasatuan}</td>
-                <td>${subtotal}</td>
-                <td>${diskon}</td>
-                <td>${total}</td>
+                <td align="right">${qty}</td>
+                <td align="right">${hargasatuan}</td>
+                <td align="right">${subtotal}</td>
+                <td align="right">${numberWithCommas(diskon)}</td>
+                <td align="right">${numberWithCommas(total)}</td>
             </tr>`
         );
         totals = totals + total;
-        $("#totals").val(totals);
-        $("#pembayaran").val(totals);
+        $("#totals").val(numberWithCommas(totals));
+        $("#pembayaran").val(numberWithCommas(totals));
 
         // $('#modal-lg').modal('hide');
         $("#idpembelian").val("");
@@ -239,14 +243,14 @@
                 "id_penjualan": $("#idpenjualan").val(),
                 "id_pembelian_detail": col[1].innerHTML,
                 "id_barang": col[2].innerHTML,
-                "qty_keluar": col[4].innerHTML,
-                "harga_jual": col[5].innerHTML,
-                "diskon": col[7].innerHTML,
+                "qty_keluar": col[4].innerHTML.replace(',', ''),
+                "harga_jual": col[5].innerHTML.replace(',', ''),
+                "diskon": col[7].innerHTML.replace(',', ''),
             });
             datadetailpembelian.push({
                 "id_pembelian_detail": col[1].innerHTML,
                 "id_barang": col[2].innerHTML,
-                "qty_keluar": col[4].innerHTML
+                "qty_keluar": col[4].innerHTML.replace(',', '')
             });
         }
 
@@ -257,13 +261,13 @@
                 "tgl_penjualan": tanggal,
                 "id_customer": $("#customer").val().split(' | ')[0],
                 "keterangan": $("#keterangan").val(),
-                "total_penjualan": $("#totals").val(),
+                "total_penjualan": $("#totals").val().replace(',', ''),
                 "status_pembayaran": document.getElementById('btnPembayaran').innerText,
                 "status_pengiriman": $("#pengiriman").val()
             },
             "pembayaran": {
                 "id_penjualan": $("#idpenjualan").val(),
-                "pembayaran": $("#pembayaran").val()
+                "pembayaran": $("#pembayaran").val().replace(',', '')
             },
             "penjualandetail": datadetailpenjualan,
             "pembeliandetail": datadetailpembelian
@@ -465,7 +469,7 @@
 
                                 </div>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" disabled id="totals" placeholder="Total" value="0">
+                                    <input style="text-align:right;" type="text" class="form-control" disabled id="totals" placeholder="Total" value="0">
                                 </div>
                             </div>
                             <br />
@@ -629,9 +633,9 @@
                                             <td><?php echo $barang[$a]['id_barang'] ?></td>
                                             <td><?php echo $barang[$a]['nama_barang'] ?></td>
                                             <td><?php echo $barang[$a]['barcode'] ?></td>
-                                            <td><?php echo $barang[$a]['stock'] ?></td>
-                                            <td><?php echo $barang[$a]['harga_jual_ecer'] ?></td>
-                                            <td><?php echo $barang[$a]['harga_jual_reseller'] ?></td>
+                                            <td align="right"><?php echo number_format($barang[$a]['stock']) ?></td>
+                                            <td align="right"><?php echo number_format($barang[$a]['harga_jual_ecer']) ?></td>
+                                            <td align="right"><?php echo number_format($barang[$a]['harga_jual_reseller']) ?></td>
                                         </tr>
                                 <?php }
                                 } ?>

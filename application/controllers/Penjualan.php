@@ -89,25 +89,31 @@ class Penjualan extends CI_Controller
         return "Data Berhasil Di Delete";
     }
 
-
-
-
-
-
-
-
-
-    public function print($idData)
+    public function updateData($idData)
     {
-        $data['pengeluaran'] = $this->pengeluaran_model->getDataById($idData);
-        $this->load->view('vPengeluaranPrint', $data);
+        $penjualan = $this->input->post('penjualan');
+        $this->penjualan_model->updateData($idData, $penjualan, 'penjualan');
+        print_r($this->input->post());
     }
 
-    public function print2($idData)
-    {
-        $data['pengeluaran'] = $this->pengeluaran_model->getDataById($idData);
-        $this->load->view('vPengeluaranPrint2', $data);
-    }
+
+
+
+
+
+
+
+    // public function print($idData)
+    // {
+    //     $data['pengeluaran'] = $this->pengeluaran_model->getDataById($idData);
+    //     $this->load->view('vPengeluaranPrint', $data);
+    // }
+
+    // public function print2($idData)
+    // {
+    //     $data['pengeluaran'] = $this->pengeluaran_model->getDataById($idData);
+    //     $this->load->view('vPengeluaranPrint2', $data);
+    // }
 
 
 

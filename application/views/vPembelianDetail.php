@@ -76,25 +76,36 @@
                                                     <th>Nama Barang</th>
                                                     <th>Qty</th>
                                                     <th>Harga Beli</th>
+                                                    <th>Total Beli</th>
                                                     <th>Harga Jual Ecer</th>
                                                     <th>Harga Jual Reseller</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <?php if (!empty($pembelian)) {
+                                                    $totals = 0;
                                                     for ($a = 0; $a < count($pembelian); $a++) { ?>
                                                         <tr>
+                                                            <?php $total = $pembelian[$a]['harga_beli'] * $pembelian[$a]['qty_masuk'] ?>
                                                             <td><?php echo $a + 1 ?></td>
                                                             <td><?php echo $pembelian[$a]['id_barang'] ?></td>
                                                             <td><?php echo $pembelian[$a]['nama_barang'] ?></td>
-                                                            <td><?php echo $pembelian[$a]['qty_masuk'] ?></td>
-                                                            <td><?php echo $pembelian[$a]['harga_beli'] ?></td>
-                                                            <td><?php echo $pembelian[$a]['harga_jual_ecer'] ?></td>
-                                                            <td><?php echo $pembelian[$a]['harga_jual_reseller'] ?></td>
+                                                            <td align="right"><?php echo number_format($pembelian[$a]['qty_masuk']) ?></td>
+                                                            <td align="right"><?php echo number_format($pembelian[$a]['harga_beli']) ?></td>
+                                                            <td align="right"><?php echo number_format($total) ?></td>
+                                                            <td align="right"><?php echo number_format($pembelian[$a]['harga_jual_ecer']) ?></td>
+                                                            <td align="right"><?php echo number_format($pembelian[$a]['harga_jual_reseller']) ?></td>
+                                                            <?php $totals = $totals + $total; ?>
                                                         </tr>
                                                 <?php }
                                                 } ?>
                                             </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <td colspan="5"></td>
+                                                    <td align="right"><?php echo number_format($totals); ?> </td>
+                                                </tr>
+                                            </tfoot>
                                         </table>
                                     </div>
                                     <!-- /.col -->

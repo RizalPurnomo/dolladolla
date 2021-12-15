@@ -73,32 +73,32 @@
                                                     <td><?php echo $penjualan[$a]['tgl_penjualan'] ?></td>
                                                     <td><?php echo $penjualan[$a]['nama'] ?></td>
                                                     <td><?php echo $penjualan[$a]['nama_barang'] ?></td>
-                                                    <td><?php echo $penjualan[$a]['qty_keluar'] ?></td>
-                                                    <td><?php echo $penjualan[$a]['harga_jual'] ?></td>
-                                                    <td>
+                                                    <td align="right"><?php echo $penjualan[$a]['qty_keluar'] ?></td>
+                                                    <td align="right"><?php echo number_format($penjualan[$a]['harga_jual']) ?></td>
+                                                    <td align="right">
                                                         <?php
                                                         $subtotaljual =  $penjualan[$a]['qty_keluar'] * $penjualan[$a]['harga_jual'];
-                                                        echo $subtotaljual;
+                                                        echo number_format($subtotaljual);
                                                         ?>
                                                     </td>
-                                                    <td><?php echo $penjualan[$a]['diskon'] ?></td>
+                                                    <td align="right"><?php echo number_format($penjualan[$a]['diskon']) ?></td>
                                                     <td>
                                                         <?php
                                                         $totaljual =  $subtotaljual -  $penjualan[$a]['diskon'];
-                                                        echo $totaljual;
+                                                        echo number_format($totaljual);
                                                         ?>
                                                     </td>
-                                                    <td style="background-color:#B9FFFF"><?php echo $penjualan[$a]['harga_beli'] ?></td>
-                                                    <td style="background-color:#B9FFFF">
+                                                    <td align="right" style="background-color:#B9FFFF"><?php echo $penjualan[$a]['harga_beli'] ?></td>
+                                                    <td align="right" style="background-color:#B9FFFF">
                                                         <?php
                                                         $totalbeli =  $penjualan[$a]['qty_keluar'] *  $penjualan[$a]['harga_beli'];
-                                                        echo $totalbeli;
+                                                        echo number_format($totalbeli);
                                                         ?>
                                                     </td>
-                                                    <td style="background-color:#A8FC9B">
+                                                    <td align="right" style="background-color:#A8FC9B">
                                                         <?php
                                                         $pendapatan =   $totaljual - $totalbeli;
-                                                        echo $pendapatan;
+                                                        echo number_format($pendapatan);
                                                         ?>
                                                     </td>
                                                 </tr>

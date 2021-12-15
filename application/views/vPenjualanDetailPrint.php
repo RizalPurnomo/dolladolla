@@ -54,13 +54,19 @@ $appName = $this->db->query($query)->result_array()[0]['appname'];
             <div class="row invoice-info">
                 <div class="col-sm-2 invoice-col">
                     <address>
-                        Tanggal Cetak<br />
+                        Tanggal Penjualan<br />
+                        Customer<br />
+                        Alamat<br />
+                        Tlp<br />
                     </address>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-10 invoice-col">
                     <address>
                         : <?php echo date('l, d-m-Y'); ?><br />
+                        : <?php echo $penjualan[0]['nama']; ?><br />
+                        : <?php echo $penjualan[0]['alamat']; ?><br />
+                        : <?php echo $penjualan[0]['wa']; ?><br />
                     </address>
                 </div>
                 <!-- /.col -->
@@ -86,29 +92,37 @@ $appName = $this->db->query($query)->result_array()[0]['appname'];
                         <tbody>
                             <?php
                             if (!empty($penjualan)) {
+                                $totals = 0;
                                 for ($a = 0; $a < count($penjualan); $a++) { ?>
                                     <tr id="penjualan<?php echo $penjualan[$a]['id_penjualan']; ?>">
                                         <td><?php echo $a + 1 ?></td>
                                         <td><?php echo $penjualan[$a]['id_barang'] ?></td>
-                                        <td><?php echo $penjualan[$a]['qty_keluar'] ?></td>
-                                        <td><?php echo $penjualan[$a]['harga_jual'] ?></td>
-                                        <td>
+                                        <td align="right"><?php echo number_format($penjualan[$a]['qty_keluar']) ?></td>
+                                        <td align="right"><?php echo number_format($penjualan[$a]['harga_jual']) ?></td>
+                                        <td align="right">
                                             <?php
                                             $subtotal = $penjualan[$a]['qty_keluar'] * $penjualan[$a]['harga_jual'];
-                                            echo $subtotal;
+                                            echo number_format($subtotal);
                                             ?>
                                         </td>
-                                        <td><?php echo $penjualan[$a]['diskon'] ?></td>
-                                        <td>
+                                        <td align="right"><?php echo number_format($penjualan[$a]['diskon']) ?></td>
+                                        <td align="right">
                                             <?php
                                             $total = $subtotal - $penjualan[$a]['diskon'];
-                                            echo $total;
+                                            $totals = $totals + $total;
+                                            echo number_format($total);
                                             ?>
                                         </td>
                                     </tr>
                             <?php }
                             } ?>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6"></td>
+                                <td align="right"><?php echo number_format($totals); ?></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
 
@@ -127,7 +141,7 @@ $appName = $this->db->query($query)->result_array()[0]['appname'];
                         </tr>
                         <tr>
                             <td>Payment</td>
-                            <td>: <?php echo $penjualan[0]['status_pembayaran'] . " ( " . $penjualan[0]['pembayaran'] . " )"; ?></td>
+                            <td>: <?php echo $penjualan[0]['status_pembayaran'] . " ( " . number_format($penjualan[0]['pembayaran']) . " )"; ?></td>
                         </tr>
                         <tr>
                             <td>Pengiriman</td>
