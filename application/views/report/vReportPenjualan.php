@@ -3,7 +3,36 @@
 
 
 <script type="text/javascript">
-
+    function getDateTime($tgl) {
+        if ($tgl == "now") {
+            var now = new Date();
+        } else {
+            var now = $tgl;
+        }
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1;
+        var day = now.getDate();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        if (month.toString().length == 1) {
+            var month = '0' + month;
+        }
+        if (day.toString().length == 1) {
+            var day = '0' + day;
+        }
+        if (hour.toString().length == 1) {
+            var hour = '0' + hour;
+        }
+        if (minute.toString().length == 1) {
+            var minute = '0' + minute;
+        }
+        if (second.toString().length == 1) {
+            var second = '0' + second;
+        }
+        var dateTime = year + '/' + month + '/' + day + ' ' + hour + ':' + minute + ':' + second;
+        return dateTime;
+    }
 </script>
 
 <!-- Content Wrapper. Contains page content -->
@@ -44,6 +73,35 @@
                             </div>
                         </div>
                         <div class="card-body">
+                            <div class="form-group row">
+                                <label class="col-sm-1 col-form-label">Tanggal</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="far fa-calendar-alt"></i>
+                                            </span>
+                                        </div>
+
+                                        <input type="text" class="form-control pull-right" id="datepicker" value="<?php echo date("m/d/Y") ?>">
+                                    </div>
+                                </div>
+                                s/d
+                                <div class="col-sm-4">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                                <i class="far fa-calendar-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control pull-right" id="datepicker2">
+                                    </div>
+                                </div>
+                                <div class="col-sm-1">
+                                    <button class="btn btn-block btn-primary">Proses</button>
+                                </div>
+                            </div>
+                            <hr />
                             <div class="box-body table-responsive">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
@@ -65,6 +123,8 @@
                                     </thead>
                                     <tbody>
                                         <?php if (!empty($penjualan)) {
+                                            $totalsBeli = 0;
+                                            $totalsPendapatan = 0;
                                             for ($a = 0; $a < count($penjualan); $a++) { ?>
                                                 <?php $idpenjualan = $penjualan[$a]['id_penjualan']; ?>
                                                 <tr id="penjualan<?php echo $idpenjualan; ?>">
@@ -88,7 +148,7 @@
                                                         echo number_format($totaljual);
                                                         ?>
                                                     </td>
-                                                    <td align="right" style="background-color:#B9FFFF"><?php echo $penjualan[$a]['harga_beli'] ?></td>
+                                                    <td align="right" style="background-color:#B9FFFF"><?php echo number_format($penjualan[$a]['harga_beli']); ?></td>
                                                     <td align="right" style="background-color:#B9FFFF">
                                                         <?php
                                                         $totalbeli =  $penjualan[$a]['qty_keluar'] *  $penjualan[$a]['harga_beli'];
@@ -101,10 +161,21 @@
                                                         echo number_format($pendapatan);
                                                         ?>
                                                     </td>
+                                                    <?php
+                                                    $totalsBeli = $totalsBeli + $totalbeli;
+                                                    $totalsPendapatan = $totalsPendapatan + $pendapatan;
+                                                    ?>
                                                 </tr>
                                         <?php }
                                         } ?>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td align="right" colspan="11">TOTAL</td>
+                                            <td align="right" style="background-color:#B9FFFF"><?php echo number_format($totalsBeli); ?></td>
+                                            <td align="right" style="background-color:#A8FC9B"><?php echo number_format($totalsPendapatan); ?></td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -126,4 +197,10 @@
 <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<script>
+    window.onload = function exampleFunction() {
+        // alert('dfdf');
+    }
+</script>
 <?php $this->load->view('footer'); ?>

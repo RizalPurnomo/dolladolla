@@ -92,6 +92,8 @@ $appName = $this->db->query($query)->result_array()[0]['appname'];
                         </thead>
                         <tbody>
                             <?php if (!empty($penjualan)) {
+                                $totalsBeli = 0;
+                                $totalsPendapatan = 0;
                                 for ($a = 0; $a < count($penjualan); $a++) { ?>
                                     <?php $idpenjualan = $penjualan[$a]['id_penjualan']; ?>
                                     <tr id="penjualan<?php echo $idpenjualan; ?>">
@@ -128,10 +130,21 @@ $appName = $this->db->query($query)->result_array()[0]['appname'];
                                             echo number_format($pendapatan);
                                             ?>
                                         </td>
+                                        <?php
+                                        $totalsBeli = $totalsBeli + $totalbeli;
+                                        $totalsPendapatan = $totalsPendapatan + $pendapatan;
+                                        ?>
                                     </tr>
                             <?php }
                             } ?>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td align="right" colspan="11">TOTAL</td>
+                                <td align="right" style="background-color:#B9FFFF"><?php echo number_format($totalsBeli); ?></td>
+                                <td align="right" style="background-color:#A8FC9B"><?php echo number_format($totalsPendapatan); ?></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
 

@@ -21,7 +21,17 @@ class Report extends CI_Controller
 
     public function rptPenjualan()
     {
-        $data['penjualan'] = $this->penjualan_model->reportPenjualan();
+        // $tglAwal = date("m/d/Y");
+        // echo $tglAwal;
+
+        $hari_ini = date("m/d/Y");
+        $tgl_pertama = date('m/01/Y', strtotime($hari_ini));
+        $tgl_terakhir = date('m/t/Y', strtotime($hari_ini));
+        echo $tgl_pertama;
+        echo "<br/>";
+        echo $tgl_terakhir;
+        exit;
+        $data['penjualan'] = $this->penjualan_model->reportPenjualan($tgl_pertama, $tgl_terakhir);
         $this->load->view('report/vReportPenjualan', $data);
     }
 
