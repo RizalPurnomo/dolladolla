@@ -34,12 +34,13 @@ class Penjualan_model extends CI_Model
         return $idData;
     }
 
-    public function reportPenjualan()
+    public function reportPenjualan($tglAwal, $tglAkhir)
     {
         $sql = "SELECT * FROM penjualan_detail a
             INNER JOIN penjualan b ON a.id_penjualan=b.id_penjualan
             INNER JOIN pembelian_detail c ON c.id_pembelian_detail=a.id_pembelian_detail
             INNER JOIN customer d ON d.id_customer=b.id_customer
+            WHERE tgl_penjualan BETWEEN '$tglAwal' AND '$tglAkhir'
             ORDER BY a.id_penjualan DESC";
         $qry = $this->db->query($sql);
         return $qry->result_array();

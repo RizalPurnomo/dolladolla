@@ -55,12 +55,14 @@ $appName = $this->db->query($query)->result_array()[0]['appname'];
                 <div class="col-sm-2 invoice-col">
                     <address>
                         Tanggal Cetak<br />
+                        Periode Laporan<br />
                     </address>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-10 invoice-col">
                     <address>
                         : <?php echo date('l, d-m-Y'); ?><br />
+                        : <?php echo $tglAwal . " s/d " . $tglAkhir; ?> <br />
                     </address>
                 </div>
                 <!-- /.col -->

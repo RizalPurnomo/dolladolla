@@ -72,6 +72,7 @@
                                 </button>
                             </div>
                         </div>
+                        <?php echo form_open('report/rptPenjualan'); ?>
                         <div class="card-body">
                             <div class="form-group row">
                                 <label class="col-sm-1 col-form-label">Tanggal</label>
@@ -83,7 +84,7 @@
                                             </span>
                                         </div>
 
-                                        <input type="text" class="form-control pull-right" id="datepicker" value="<?php echo date("m/d/Y") ?>">
+                                        <input type="text" class="form-control pull-right" name="datepicker" id="datepicker" value="<?php echo date("m/d/Y", strtotime($tglAwal)); ?>"> <!-- date("m/d/Y") -->
                                     </div>
                                 </div>
                                 s/d
@@ -94,13 +95,18 @@
                                                 <i class="far fa-calendar-alt"></i>
                                             </span>
                                         </div>
-                                        <input type="text" class="form-control pull-right" id="datepicker2">
+                                        <input type="text" class="form-control pull-right" name="datepicker2" id="datepicker2" value="<?php echo date("m/d/Y", strtotime($tglAkhir)); ?>">
                                     </div>
                                 </div>
                                 <div class="col-sm-1">
-                                    <button class="btn btn-block btn-primary">Proses</button>
+                                    <button type="submit" name="proses" value="proses" class="btn btn-info pull-right">Proses</button>
                                 </div>
+                                <div class="col-sm-1">
+                                    <button type="submit" name="proses" value="print" class="btn btn-info pull-right">Print</button>
+                                </div>
+                                <?php echo form_close(); ?>
                             </div>
+
                             <hr />
                             <div class="box-body table-responsive">
                                 <table id="example1" class="table table-bordered table-striped">
@@ -179,6 +185,7 @@
                                 </table>
                             </div>
                         </div>
+
 
                     </div>
                     <!-- ./card-body -->

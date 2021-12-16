@@ -19,20 +19,29 @@ class Report extends CI_Controller
         $this->load->view('report/vReportStock', $data);
     }
 
-    public function rptPenjualan()
+    function rptPenjualan()
     {
-        // $tglAwal = date("m/d/Y");
-        // echo $tglAwal;
-
-        $hari_ini = date("m/d/Y");
-        $tgl_pertama = date('m/01/Y', strtotime($hari_ini));
-        $tgl_terakhir = date('m/t/Y', strtotime($hari_ini));
-        echo $tgl_pertama;
-        echo "<br/>";
-        echo $tgl_terakhir;
-        exit;
-        $data['penjualan'] = $this->penjualan_model->reportPenjualan($tgl_pertama, $tgl_terakhir);
-        $this->load->view('report/vReportPenjualan', $data);
+        if (!empty($_POST)) {
+            $tglAwal = date('Y-m-d', strtotime($_POST['datepicker']));
+            $tglAkhir = date('Y-m-d', strtotime($_POST['datepicker2']));
+            $data['tglAwal'] = $tglAwal;
+            $data['tglAkhir'] = $tglAkhir;
+            if ($_POST['proses'] == 'proses') {
+                $data['penjualan'] = $this->penjualan_model->reportPenjualan($tglAwal, $tglAkhir);
+                $this->load->view('report/vReportPenjualan', $data);
+            } else {
+                $data['penjualan'] = $this->penjualan_model->reportPenjualan($tglAwal, $tglAkhir);
+                $this->load->view('report/vReportPenjualanPrint', $data);
+            }
+        } else {
+            $today = date("Y-m-d");
+            $tglAwal = date('Y-m-01', strtotime($today));
+            $tglAkhir = date('Y-m-t', strtotime($today));
+            $data['tglAwal'] = $tglAwal;
+            $data['tglAkhir'] = $tglAkhir;
+            $data['penjualan'] = $this->penjualan_model->reportPenjualan($tglAwal, $tglAkhir);
+            $this->load->view('report/vReportPenjualan', $data);
+        }
     }
 
     public function printStock()
@@ -41,11 +50,11 @@ class Report extends CI_Controller
         $this->load->view('report/vReportStockPrint', $data);
     }
 
-    public function printPenjualan()
-    {
-        $data['penjualan'] = $this->penjualan_model->reportPenjualan();
-        $this->load->view('report/vReportPenjualanPrint', $data);
-    }
+    // public function printPenjualan()
+    // {
+    //     $data['penjualan'] = $this->penjualan_model->reportPenjualan();
+    //     $this->load->view('report/vReportPenjualanPrint', $data);
+    // }
 
 
 
