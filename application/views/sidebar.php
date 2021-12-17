@@ -7,9 +7,11 @@
     </script>
 
     <?php
-    $master = ($this->uri->segment(1) == 'user'  || $this->uri->segment(1) == 'inventaris' ? 'menu-open' : '');
+    $master = ($this->uri->segment(1) == 'user'  || $this->uri->segment(1) == 'customer' || $this->uri->segment(1) == 'supplier' ? 'menu-open' : '');
     $master2 = ($this->uri->segment(1) == 'report' ? 'menu-open' : '');
     $user = ($this->uri->segment(1) == 'user' ? 'active' : '');
+    $customer = ($this->uri->segment(1) == 'customer' ? 'active' : '');
+    $supplier = ($this->uri->segment(1) == 'supplier' ? 'active' : '');
     $barang = ($this->uri->segment(1) == 'barang' ? 'active' : '');
     $inventaris = ($this->uri->segment(1) == 'inventaris' ? 'active' : '');
     $pembelian = ($this->uri->segment(1) == 'pembelian' ? 'active' : '');
@@ -60,6 +62,18 @@
                                 <a href="<?php echo base_url('user'); ?>" class="nav-link <?php echo $user; ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>User</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('customer'); ?>" class="nav-link <?php echo $customer; ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Customer</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('supplier'); ?>" class="nav-link <?php echo $supplier; ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Supplier</p>
                                 </a>
                             </li>
                         </ul>

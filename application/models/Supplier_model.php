@@ -12,15 +12,45 @@ class Supplier_model extends CI_Model
 
     public function getAllData()
     {
-        $sql = "SELECT * FROM supplier";
+        $sql = "SELECT * FROM supplier order by id_supplier desc";
         $qry = $this->db->query($sql);
         return $qry->result_array();
     }
 
+    public function getIdData($thn)
+    {
+        $idData = "";
+        $sql = "SELECT MAX(id_supplier) AS maxdata FROM supplier WHERE id_supplier LIKE '$thn%'";
+        $qry = $this->db->query($sql)->result_array();
+        $maxData = $qry[0]['maxdata'];
+        if (empty($maxData)) {
+            $idData = $thn . "001";
+        } else {
+            $maxData++;
+            $idData = $maxData;
+        }
+        return $idData;
+    }
 
+    public function getDataById($idData)
+    {
+        $query = "SELECT * FROM supplier WHERE id_supplier='$idData'";
+        $sql = $this->db->query($query);
+        return $sql->result_array();
+    }
 
+    public function updateData($id, $data, $tabel)
+    {
+        $this->db->where('id_supplier', $id);
+        $this->db->update($tabel, $data);
+        return  "Data " . $id . " Berhasil Diupdate";
+    }
 
-
+    public function deleteData($id, $tabel)
+    {
+        $this->db->where('id_supplier', $id);
+        $this->db->delete($tabel);
+    }
 
 
 
@@ -41,45 +71,13 @@ class Supplier_model extends CI_Model
         return $qry->result_array();
     }
 
-    public function getIdData($thn)
-    {
-        $idData = "";
-        $sql = "SELECT MAX(idbarang) AS maxdata FROM tblmbarang WHERE idbarang LIKE '$thn%'";
-        $qry = $this->db->query($sql)->result_array();
-        $maxData = $qry[0]['maxdata'];
-        if (empty($maxData)) {
-            $idData = $thn . "001";
-        } else {
-            $maxData++;
-            $idData = $maxData;
-        }
-        return $idData;
-    }
-
     public function saveData($data, $tabel)
     {
         $this->db->insert($tabel, $data);
     }
 
-    public function updateData($id, $data, $tabel)
-    {
-        $this->db->where('idbarang', $id);
-        $this->db->update($tabel, $data);
-        return  "Data " . $id . " Berhasil Diupdate";
-    }
 
-    public function deleteData($id, $tabel)
-    {
-        $this->db->where('idbarang', $id);
-        $this->db->delete($tabel);
-    }
 
-    public function getDataById($idData)
-    {
-        $query = "SELECT * FROM tblmbarang WHERE idbarang='$idData'";
-        $sql = $this->db->query($query);
-        return $sql->result_array();
-    }
 
     // ------
     public function getStockById($id)

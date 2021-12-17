@@ -12,7 +12,7 @@ class Customer_model extends CI_Model
 
     public function getAllData()
     {
-        $sql = "SELECT * FROM customer";
+        $sql = "SELECT * FROM customer order by id_customer desc";
         $qry = $this->db->query($sql);
         return $qry->result_array();
     }
@@ -37,9 +37,25 @@ class Customer_model extends CI_Model
         $this->db->insert($tabel, $data);
     }
 
+    public function getDataById($idData)
+    {
+        $query = "SELECT * FROM customer WHERE id_customer='$idData'";
+        $sql = $this->db->query($query);
+        return $sql->result_array();
+    }
 
+    public function updateData($id, $data, $tabel)
+    {
+        $this->db->where('id_customer', $id);
+        $this->db->update($tabel, $data);
+        return  "Data " . $id . " Berhasil Diupdate";
+    }
 
-
+    public function deleteData($id, $tabel)
+    {
+        $this->db->where('id_customer', $id);
+        $this->db->delete($tabel);
+    }
 
 
 
@@ -58,25 +74,8 @@ class Customer_model extends CI_Model
         return $qry->result_array();
     }
 
-    public function updateData($id, $data, $tabel)
-    {
-        $this->db->where('idbarang', $id);
-        $this->db->update($tabel, $data);
-        return  "Data " . $id . " Berhasil Diupdate";
-    }
 
-    public function deleteData($id, $tabel)
-    {
-        $this->db->where('idbarang', $id);
-        $this->db->delete($tabel);
-    }
 
-    public function getDataById($idData)
-    {
-        $query = "SELECT * FROM tblmbarang WHERE idbarang='$idData'";
-        $sql = $this->db->query($query);
-        return $sql->result_array();
-    }
 
     // ------
     public function getStockById($id)

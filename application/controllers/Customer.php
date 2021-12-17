@@ -26,35 +26,48 @@ class Customer extends CI_Controller
         print_r($this->input->post());
     }
 
-
-
-
-
-
-
-
     public function index()
     {
-        $data['barangjkt'] = $this->barang_model->getDataByIdCabang('21001');
-        $data['barangtsk'] = $this->barang_model->getDataByIdCabang('21002');
-        // echo "<pre/>";
-        // print_r($data);
-        $this->load->view('master/vBarang', $data);
+        $data['customer'] = $this->customer_model->getAllData();
+        $this->load->view('master/vCustomer', $data);
     }
 
     public function add()
     {
-        $data['idbarang']   = $this->barang_model->getIdData(date('y'));
-        $data['satuan'] = $this->satuan_model->getAlldata();
-        $data['cabang'] = $this->cabang_model->getAlldata();
-        $this->load->view('master/vBarangAdd', $data);
+        $data['idcustomer']   = $this->customer_model->getIdData(date('y'));
+        $this->load->view('master/vCustomerAdd', $data);
     }
 
-    public function print($idCabang)
+    function edit($idData)
     {
-        $data['barang'] = $this->barang_model->getDataByIdCabang($idCabang);
-        $this->load->view('master/vBarangPrint', $data);
+        if (isset($idData)) {
+            $data['customer']     = $this->customer_model->getDataById($idData);
+        }
+        $this->load->view('master/vCustomerEdit', $data);
     }
+
+    public function updateData($idData)
+    {
+        $barang = $this->input->post('customer');
+        $this->customer_model->updateData($idData, $barang, 'customer');
+        print_r($this->input->post());
+    }
+
+    function delete($idData)
+    {
+        if (isset($idData)) {
+            $this->customer_model->deleteData($idData, "customer");
+        }
+        return "Data Berhasil Di Delete";
+    }
+
+
+
+    // public function print($idCabang)
+    // {
+    //     $data['barang'] = $this->barang_model->getDataByIdCabang($idCabang);
+    //     $this->load->view('master/vBarangPrint', $data);
+    // }
 
     public function saveBatch()
     {
@@ -73,30 +86,6 @@ class Customer extends CI_Controller
         }
     }
 
-    function edit($idData)
-    {
-        if (isset($idData)) {
-            $data['barang'] = $this->barang_model->getDataById($idData);
-            $data['satuan'] = $this->satuan_model->getAlldata();
-            $data['cabang'] = $this->cabang_model->getAlldata();
-        }
-        $this->load->view('master/vBarangEdit', $data);
-    }
-
-    public function updateData($idData)
-    {
-        $barang = $this->input->post('barang');
-        $this->barang_model->updateData($idData, $barang, 'tblmbarang');
-        print_r($this->input->post());
-    }
-
-    function delete($idData)
-    {
-        if (isset($idData)) {
-            $this->barang_model->deleteData($idData, "tblmbarang");
-        }
-        return "Data Berhasil Di Delete";
-    }
 
 
     function getBarangByCabang($idCabang)
