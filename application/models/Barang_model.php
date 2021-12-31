@@ -41,6 +41,13 @@ class Barang_model extends CI_Model
         return  "Data " . $idpembeliandetail . " Berhasil Diupdate";
     }
 
+    public function updateDataBarang($id, $data, $tabel)
+    {
+        $this->db->where('id_barang', $id);
+        $this->db->update($tabel, $data);
+        return  "Data " . $id . " Berhasil Diupdate";
+    }
+
     public function getBrgKeluarById($id)
     {
         $query = "SELECT * FROM pembelian_detail WHERE id_pembelian_detail='$id'";
@@ -48,7 +55,12 @@ class Barang_model extends CI_Model
         return $sql->result_array();
     }
 
-
+    public function getDataById($idData)
+    {
+        $query = "SELECT * FROM pembelian_detail WHERE id_barang='$idData'";
+        $sql = $this->db->query($query);
+        return $sql->result_array();
+    }
 
 
 
@@ -79,12 +91,7 @@ class Barang_model extends CI_Model
         $this->db->delete($tabel);
     }
 
-    public function getDataById($idData)
-    {
-        $query = "SELECT * FROM tblmbarang WHERE idbarang='$idData'";
-        $sql = $this->db->query($query);
-        return $sql->result_array();
-    }
+
 
     // ------
 

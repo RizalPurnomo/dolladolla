@@ -13,7 +13,11 @@ class Barang extends CI_Controller
         }
     }
 
-
+    public function index()
+    {
+        $data['barang'] = $this->barang_model->getAlldata();
+        $this->load->view('master/vBarang', $data);
+    }
 
     function getMaxIdBarang()
     {
@@ -21,9 +25,28 @@ class Barang extends CI_Controller
         echo $idbarang;
     }
 
+    function edit($idData)
+    {
+        if (isset($idData)) {
+            $data['barang'] = $this->barang_model->getDataById($idData);
+            // print_r($data);
+            // exit;
+        }
+        $this->load->view('master/vBarangEdit', $data);
+    }
 
+    public function updateData($idData)
+    {
+        $barang = $this->input->post('barang');
+        $this->barang_model->updateDataBarang($idData, $barang, 'pembelian_detail');
+        print_r($this->input->post());
+    }
 
-
+    public function getDataById($input)
+    {
+        $barang = $this->barang_model->getDataById($input);
+        echo json_encode($barang);
+    }
 
 
 
@@ -40,11 +63,11 @@ class Barang extends CI_Controller
         $this->load->view('master/vBarangAdd', $data);
     }
 
-    public function print($idCabang)
-    {
-        $data['barang'] = $this->barang_model->getDataByIdCabang($idCabang);
-        $this->load->view('master/vBarangPrint', $data);
-    }
+    // public function print($idCabang)
+    // {
+    //     $data['barang'] = $this->barang_model->getDataByIdCabang($idCabang);
+    //     $this->load->view('master/vBarangPrint', $data);
+    // }
 
     public function saveBatch()
     {
@@ -70,22 +93,6 @@ class Barang extends CI_Controller
         print_r($this->input->post());
     }
 
-    function edit($idData)
-    {
-        if (isset($idData)) {
-            $data['barang'] = $this->barang_model->getDataById($idData);
-            $data['satuan'] = $this->satuan_model->getAlldata();
-            $data['cabang'] = $this->cabang_model->getAlldata();
-        }
-        $this->load->view('master/vBarangEdit', $data);
-    }
-
-    public function updateData($idData)
-    {
-        $barang = $this->input->post('barang');
-        $this->barang_model->updateData($idData, $barang, 'tblmbarang');
-        print_r($this->input->post());
-    }
 
     function delete($idData)
     {

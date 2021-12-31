@@ -386,11 +386,17 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Pilih Barang</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="barang" placeholder="Barang">
+                                    <input type="text" class="form-control" id="kodebarang" placeholder="Kode Barang">
                                 </div>
                                 <button type="button" class="col-sm-1 btn btn-block btn-primary" onclick="tambahBarang()">
                                     <i class="fa fa-folder-open" aria-hidden="true"></i>
                                 </button>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label"></label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="barang" placeholder="Barang">
+                                </div>
                             </div>
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label"></label>
@@ -652,6 +658,49 @@
         </div>
     </div>
 </div>
+
+<script>
+    var input = document.getElementById("kodebarang");
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "POST",
+                // data: dataArray,
+                url: '<?php echo base_url('barang/getDataById/'); ?>' + input.value,
+                success: function(result) {
+                    let arr = JSON.parse(result)
+                    console.log(arr);
+                    console.log(arr[0]['id_barang']);
+                    return;
+                    if (arr.length > 0) {
+                        barang = arr[0]['id_pembelian_detail'] + ' | ' + arr[0]['id_barang'] + ' | ' + arr[0]['nama_barang'] + ' | ' + (arr[0]['qty_masuk'] - arr[0]['qty_klr']) + ' | ' + arr[0]['harga_jual_ecer'] + ' | ' + arr[0]['harga_jual_reseller']
+                        $("#barang").val(barang);
+                        $("#qty").val(1);
+                        $("#diskon").val(0);
+                        $("#idbarang").val($("#" + id + " td")[4].innerHTML);
+                        $("#idpembelian").val($("#" + id + " td")[2].innerHTML);
+                        $("#namabarang").val($("#" + id + " td")[5].innerHTML);
+                        $("#stock").val($("#" + id + " td")[7].innerHTML);
+                        arrcust = $("#customer").val().split(' | ');
+                        if (arrcust[2] == "Reseller") {
+                            $("#hargasatuan").val($("#" + id + " td")[9].innerHTML);
+                            $("#subtotal").val($("#" + id + " td")[9].innerHTML);
+                            $("#total").val($("#" + id + " td")[9].innerHTML);
+                        } else {
+                            $("#hargasatuan").val($("#" + id + " td")[8].innerHTML);
+                            $("#subtotal").val($("#" + id + " td")[8].innerHTML);
+                            $("#total").val($("#" + id + " td")[8].innerHTML);
+                        }
+                    } else {
+                        alert('Data Tidak Ditemukan');
+                    }
+                }
+            })
+        }
+    });
+</script>
 
 <!-- /.modal -->
 <?php $this->load->view('footer'); ?>

@@ -7,7 +7,7 @@
     </script>
 
     <?php
-    $master = ($this->uri->segment(1) == 'user'  || $this->uri->segment(1) == 'customer' || $this->uri->segment(1) == 'supplier' ? 'menu-open' : '');
+    $master = ($this->uri->segment(1) == 'user'  || $this->uri->segment(1) == 'customer' || $this->uri->segment(1) == 'barang' || $this->uri->segment(1) == 'supplier' ? 'menu-open' : '');
     $master2 = ($this->uri->segment(1) == 'report' ? 'menu-open' : '');
     $user = ($this->uri->segment(1) == 'user' ? 'active' : '');
     $customer = ($this->uri->segment(1) == 'customer' ? 'active' : '');
@@ -58,6 +58,12 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?php echo base_url('barang'); ?>" class="nav-link <?php echo $barang; ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Barang</p>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a href="<?php echo base_url('user'); ?>" class="nav-link <?php echo $user; ?>">
                                     <i class="far fa-circle nav-icon"></i>

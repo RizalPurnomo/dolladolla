@@ -33,6 +33,11 @@
         return dateTime;
     }
 
+    function pilihBarang() {
+        getMaxIdBarang();
+        $('#modal-lg').modal('show');
+    }
+
     function addBarang() {
         barcode = $("#barcode").val();
         namabarang = $("#namabarang").val();
@@ -41,7 +46,7 @@
         hargajualecer = $("#hargajualecer").val();
         hargajualreseller = $("#hargajualreseller").val();
 
-        if (barcode == "" || namabarang == "" || hargabeli == "" || hargajualecer == "" || hargajualreseller == "") {
+        if (namabarang == "" || hargabeli == "" || hargajualecer == "" || hargajualreseller == "") {
             Swal.fire({
                 icon: 'warning',
                 text: 'Harap lengkapi data',
@@ -49,17 +54,17 @@
             return;
         }
 
-        var row = $("#dataBarang tbody tr");
-        for (var i = 0; i < row.length; i++) {
-            var col = $(row[i]).find("td");
-            if (col[1].innerHTML == barcode) {
-                Swal.fire({
-                    icon: 'warning',
-                    text: 'Tidak dapat memasukkan Id Barang yang sama',
-                })
-                return;
-            }
-        }
+        // var row = $("#dataBarang tbody tr");
+        // for (var i = 0; i < row.length; i++) {
+        //     var col = $(row[i]).find("td");
+        //     if (col[1].innerHTML == barcode) {
+        //         Swal.fire({
+        //             icon: 'warning',
+        //             text: 'Tidak dapat memasukkan Id Barang yang sama',
+        //         })
+        //         return;
+        //     }
+        // }
         $("#dataBarang tbody").append(
             `<tr>
                 <td>- </td>
@@ -71,7 +76,6 @@
                 <td>${hargajualreseller}</td>
             </tr>`
         );
-        getMaxIdBarang();
         $('#modal-lg').modal('hide');
 
     }
@@ -111,6 +115,7 @@
                 "barcode": col[1].innerHTML,
                 "nama_barang": col[2].innerHTML,
                 "qty_masuk": col[3].innerHTML,
+                "qty_klr": 0,
                 "harga_beli": col[4].innerHTML,
                 "harga_jual_ecer": col[5].innerHTML,
                 "harga_jual_reseller": col[6].innerHTML
@@ -235,7 +240,6 @@
                         <div class="card-body">
                             <div class="form-group row">
                                 <input type="hidden" class="form-control" id="iduser" value="<?php echo $this->session->userdata('id_user'); ?>" disabled placeholder="ID User">
-                                <input type="hidden" class="form-control" id="idbrg" disabled placeholder="ID Barang">
                                 <label for="inputEmail3" class="col-sm-2 col-form-label">Id Pembelian</label>
                                 <div class="col-sm-10">
                                     <input type="text" class="form-control" id="idpembelian" value="<?php echo $idpembelian; ?>" disabled placeholder="ID Pembelian">
@@ -280,7 +284,8 @@
                                 <!-- <div class="col-sm-9">
                                     <input type="text" class="form-control" id="barang" placeholder="Barang">
                                 </div> -->
-                                <button type="button" class="col-sm-10 btn btn-block btn-primary" data-toggle="modal" data-target="#modal-lg">
+                                <button type="button" class="col-sm-10 btn btn-block btn-primary" onclick="pilihBarang()">
+                                    <!-- data-toggle="modal" data-target="#modal-lg" -->
                                     Pilih Barang
                                 </button>
                             </div>
@@ -373,6 +378,7 @@
                                 <div class="form-group row">
                                     <label class="col-sm-2 col-form-label">Barcode</label>
                                     <div class="col-sm-10">
+                                        <input type="hidden" class="form-control" id="idbrg" disabled placeholder="ID Barang">
                                         <input type="text" class="form-control" id="barcode" placeholder="Barcode">
                                     </div>
                                 </div>
