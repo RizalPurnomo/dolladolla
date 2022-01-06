@@ -86,6 +86,7 @@
 
                                                     <td>
                                                         <a class="btn btn-large btn-primary" href="javascript:selectData('barang<?php echo $barang[$a]['id_barang']; ?>')">Edit</a>
+                                                        <a href="<?php echo base_url('barang/printBarcode/') . $barang[$a]['id_barang']; ?>" target="_blank" class="btn btn-success">Cetak</a>
                                                     </td>
                                                 </tr>
                                         <?php }

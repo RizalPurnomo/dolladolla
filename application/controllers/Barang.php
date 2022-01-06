@@ -48,6 +48,11 @@ class Barang extends CI_Controller
         echo json_encode($barang);
     }
 
+    public function printBarcode($id)
+    {
+        $data['barang'] = $this->barang_model->getDataById($id);
+        $this->load->view('report/vPrintBarcode', $data);
+    }
 
 
 

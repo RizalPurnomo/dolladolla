@@ -108,6 +108,10 @@
                             </div>
 
                             <hr />
+                            <?php
+                            $totalsBeli = 0;
+                            $totalsPendapatan = 0;
+                            ?>
                             <div class="box-body table-responsive">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
@@ -129,8 +133,6 @@
                                     </thead>
                                     <tbody>
                                         <?php if (!empty($penjualan)) {
-                                            $totalsBeli = 0;
-                                            $totalsPendapatan = 0;
                                             for ($a = 0; $a < count($penjualan); $a++) { ?>
                                                 <?php $idpenjualan = $penjualan[$a]['id_penjualan']; ?>
                                                 <tr id="penjualan<?php echo $idpenjualan; ?>">

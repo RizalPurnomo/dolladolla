@@ -289,7 +289,7 @@
                 })
 
                 console.log(result);
-                window.location = "<?php echo base_url(); ?>penjualan/";
+                window.location = "<?php echo base_url(); ?>penjualan/detailPrint/" + $("#idpenjualan").val();
             }
         })
 

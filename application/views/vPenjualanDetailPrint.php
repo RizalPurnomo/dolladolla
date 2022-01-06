@@ -32,7 +32,7 @@ $appName = $this->db->query($query)->result_array()[0]['appname'];
             <div class="row">
                 <div class="col-12">
                     <h4>
-                        <img src="<?php echo base_url(); ?>assets/images/logo.png" width="100"> <br />
+                        <a href="<?php echo base_url('penjualan'); ?>"><img src="<?php echo base_url(); ?>assets/images/logo.png" width="100"> </a> <br />
                         <b>DOLLA DOLLA </b>
                     </h4>
                 </div>
